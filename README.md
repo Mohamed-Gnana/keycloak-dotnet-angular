@@ -1,3 +1,6 @@
+
+![image](https://github.com/user-attachments/assets/db599890-f4b7-4245-b235-d4e038e2ba97)
+
 # Keycloak .NET & Angular Integration
 
 This project demonstrates a full-stack integration of [Keycloak](https://www.keycloak.org/) for authentication and authorization using:
