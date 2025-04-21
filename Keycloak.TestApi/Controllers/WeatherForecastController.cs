@@ -31,5 +31,18 @@ namespace Keycloak.TestApi.Controllers
             })
             .ToArray();
         }
+
+        //[Authorize(Policy = "weather-service")]
+        //[HttpGet(Name = "GetWeatherForecast1")]
+        //public IEnumerable<WeatherForecast> GetIntegration()
+        //{
+        //    return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        //    {
+        //        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+        //        TemperatureC = Random.Shared.Next(-20, 55),
+        //        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        //    })
+        //    .ToArray();
+        //}
     }
 }

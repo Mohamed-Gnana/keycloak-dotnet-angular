@@ -12,7 +12,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         });
 
         var headers = req.headers;
-        debugger
     }
 
     return next(req);

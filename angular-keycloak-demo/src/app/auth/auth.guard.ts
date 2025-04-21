@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
         return new Promise((resolve) => {
             if(this.keycloakService.isAuthenticated()) resolve(true);
             else {
-                this.keycloakService.init()
+                this.keycloakService.init("http://localhost:4200/weather")
                 .then(() => resolve(true))
                 .catch(() => {
                     this.router.navigate(['/']);
@@ -33,7 +33,7 @@ export const authGuard: CanActivateFn = async () => {
     if(keycloak.isAuthenticated()) return true;
 
     try {
-        await keycloak.init();
+        await keycloak.init("http://localhost:4200/weather");
         return true;
     }
     catch {

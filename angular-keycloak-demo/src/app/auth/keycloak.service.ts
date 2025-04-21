@@ -12,13 +12,14 @@ export class KeycloakService {
     constructor() {
     }
 
-    public async init(redirectUrl: string | undefined = undefined): Promise<any> {
+    public async init(redirectUrl: string | undefined = 'http://localhost:4200/'): Promise<any> {
         this.keycloak = new Keycloak(environment.keycloak);
 
         const storedToken = this._storage.getItem("kc_token");
         const storedRefreshToken = this._storage.getItem("kc_refresh_token");
 
-        await this.keycloak?.init({ 
+        console.log(redirectUrl)
+        let authenticated = await this.keycloak?.init({ 
             onLoad: 'login-required', 
             pkceMethod: 'S256', 
             responseMode: 'query', 
@@ -27,6 +28,15 @@ export class KeycloakService {
             refreshToken: storedRefreshToken || undefined,
             redirectUri: redirectUrl || undefined
         });
+
+        // console.log(authenticated)
+
+        // if(!authenticated) {
+        //     this._storage.setItem('post_login_redirect', redirectUrl || 'http://localhost:4200');
+        //     await this.keycloak.login({
+        //         redirectUri: redirectUrl || 'http://localhost:4200'
+        //     });
+        // }
 
         if(this.keycloak) {
             this.keycloak.onTokenExpired = () => {
@@ -50,17 +60,19 @@ export class KeycloakService {
     get token(): string | undefined {
         console.log(this.keycloak?.token)
         var data = this.keycloak?.token;
-        debugger
         return this.keycloak?.token;
     }
 
     public logout(): void {
         this._storage.removeItem('kc_token');
         this._storage.removeItem('kc_refresh_token');
-        this.keycloak?.logout();
+        this.keycloak?.logout({
+            redirectUri: 'http://localhost:4200/'
+        });
     }
 
     public isAuthenticated(): boolean {
+        debugger
         return this.keycloak?.authenticated ?? false;
     }
 

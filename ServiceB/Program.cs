@@ -1,6 +1,6 @@
 using Keycloak.Authentication.Extensions;
 using Microsoft.OpenApi.Models;
-using System.Security.Claims;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Test Service",
+        Title = "Service B",
         Version = "v1"
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -36,16 +36,8 @@ builder.Services.AddSwaggerGen(c =>
     }
   });
 });
-
+builder.Services.AddHttpClient();
 builder.Services.AddKeycloakAuthentication(builder.Configuration);
-
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("weather-service", policy =>
-//    {
-//        policy.RequireRole(ClaimTypes.Role, "hr_manager");
-//    });
-//});
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
