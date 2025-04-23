@@ -26,14 +26,14 @@ export class AuthGuard implements CanActivate {
 
 }
 
-export const authGuard: CanActivateFn = async () => {
+export const authGuard: CanActivateFn = async (route, state) => {
     const keycloak = inject(KeycloakService);
     const router = inject(Router);
 
     if(keycloak.isAuthenticated()) return true;
 
     try {
-        await keycloak.init("http://localhost:4200/weather");
+        await keycloak.init(window.location.origin + state.url);
         return true;
     }
     catch {

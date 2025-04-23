@@ -14,4 +14,8 @@ export class HomeComponent {
     goToWeather() {
         this.router.navigate(['/weather']);
     }
+
+    goToWeather2() {
+        this.router.navigate(['/weather2']);
+    }
 }
